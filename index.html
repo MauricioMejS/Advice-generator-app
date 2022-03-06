@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href='https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Advice generator app</title>
+    <style>
+      body {
+        font-family: 'Manrope';
+        padding: 0px;
+        margin: 0px;
+        height: 100vh;
+        background-color: #202733;
+      }
+      .attribution {
+        font-size: 11px;
+        position: absolute;
+        bottom: 10px;
+        left: 5px;
+        color: rgba(255, 255, 255, 0.612);
+      }
+      .attribution a {
+        color: hsl(0, 0%, 100%);
+      }
+      .adviceComponent {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+      .adviceComponent div {
+
+        text-align: center;
+        width: 540px;
+        background: #313a48;
+        box-shadow: 30px 50px 80px rgba(0, 0, 0, 0.100202);
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .adviceComponent div h2 {
+        color: #53ffaa;
+        font-size: 13px;
+        letter-spacing: 5.58571px;
+        line-height: 18px;
+        font-weight: 800;
+        margin: 0px;
+        padding-top: 48px;
+        padding-bottom: 24px;
+      }
+      .adviceComponent div p {
+        color: #cee3e9;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 38px;
+        letter-spacing: 2px;
+        margin: 0px;
+        padding: 0px 48px 40px 48px;
+      }
+      #adviceDivider {
+        padding: 0px 48px 10px 48px;
+        display: flex;
+      }
+      #adviceDividerM{
+          margin: 0px 48px 10px 48px;
+          display: none;
+          width: 100%;
+        }
+      #btnAdvice {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 0px;
+        background-color: #53FFAA;
+        top: 30px;
+
+        /*Button styles*/
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #btnAdvice:hover{
+        box-shadow: 0px 0px 40px #53FFAA;
+        cursor: pointer;
+      }
+      
+      @media (max-width: 563px) {
+        .adviceComponent div {
+          width: 95%;
+        }
+        #btnAdvice {
+          text-align: center;
+          transform: translateX(-1%);
+        }
+        #adviceDividerM{
+          display: flex;
+          width: 90%;
+        }
+        #adviceDivider {
+          display: none;
+        }
+        .adviceComponent div h2 {
+          padding-top: 40px;
+          font-size: 11px;
+        }
+        .adviceComponent div p {
+          font-size: 24px;
+          padding: 0px 24px 24px 24px;
+        }
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="adviceComponent">
+      <div>
+        <h2>ADVICE #<span id="adviceId"></span></h2>
+        <p id="adviceQuote"></p>
+        <img
+          id="adviceDivider"
+          src="images/pattern-divider-desktop.svg"
+          alt=""
+        />
+        <img id="adviceDividerM" src="images/pattern-divider-mobile.svg" alt="">
+          <button onclick="adviceInfo()" id="btnAdvice">
+            <img src="images/icon-dice.svg" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="https://github.com/MauricioMejS">Mauricio Mejia</a>.
+    </div>
+  </body>
+  <script>
+    const adviceId = document.getElementById("adviceId");
+    const adviceQuote = document.getElementById("adviceQuote");
+    fetch("https://api.adviceslip.com/advice", { cache: "no-cache" })
+      .then(res => res.json())
+      .then(data => {
+        let advice = data.slip;
+        adviceId.innerHTML = `${advice.id}`;
+        adviceQuote.innerHTML = `"${advice.advice}"`;
+    });
+    function adviceInfo(){
+      fetch("https://api.adviceslip.com/advice", { cache: "no-cache" })
+        .then(res => res.json())
+        .then(data => {
+          let advice = data.slip;
+          adviceId.innerHTML = `${advice.id}`;
+          adviceQuote.innerHTML = `"${advice.advice}"`;
+      });
+    }
+  </script>
+</html>
